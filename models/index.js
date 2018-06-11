@@ -1,7 +1,13 @@
 import Sequelize from 'sequelize';
+import Config from '../config';
 
-const sequelize = new Sequelize('slack', 'postgres', 'knowchi1', {
+const { database, username, password } = Config;
+
+const sequelize = new Sequelize(database, username, password, {
   dialect: 'postgres',
+  define: {
+    underscored: true,
+  },
 });
 
 const models = {
