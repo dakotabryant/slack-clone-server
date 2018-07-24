@@ -4,6 +4,7 @@ import Config from '../config';
 const { database, username, password } = Config;
 
 const sequelize = new Sequelize(database, username, password, {
+  host: 'pellefant.db.elephantsql.com',
   dialect: 'postgres',
   define: {
     underscored: true,
