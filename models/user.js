@@ -1,16 +1,16 @@
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('users', {
+  const User = sequelize.define('user', {
     username: {
       type: DataTypes.STRING,
       unique: true,
       validate: {
         isAlphanumeric: {
           args: true,
-          msg: 'Username can only be letters and numbers',
+          msg: 'The username can only contain letters and numbers',
         },
         len: {
           args: [3, 25],
-          msg: 'Username needs to be between 3 and 25 characters',
+          msg: 'The username needs to be between 3 and 25 characters long',
         },
       },
     },
@@ -23,10 +23,8 @@ export default (sequelize, DataTypes) => {
           msg: 'Invalid email',
         },
       },
-      password: {
-        type: DataTypes.STRING,
-      },
     },
+    password: DataTypes.STRING,
   });
 
   User.associate = (models) => {
@@ -37,7 +35,7 @@ export default (sequelize, DataTypes) => {
         field: 'user_id',
       },
     });
-    // 1 To M
+    // N:M
     User.belongsToMany(models.Channel, {
       through: 'channel_member',
       foreignKey: {
